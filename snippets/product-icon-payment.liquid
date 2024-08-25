@@ -1,0 +1,18 @@
+<div class="bs-devshop__payment-part">
+  <ul class="bs-devshop__flex bs-devshop__justify-center bs-devshop__justify-center">
+    <li class="bs-devshop__flex bs-devshop__align-item-center">
+      <div class="bs-devshop__payment-icon">
+        <img src="{{ 'visa.svg' | asset_url }}">
+        <img src="{{ 'afterpay.svg' | asset_url }}">
+        <img src="{{ 'apple-pay.svg' | asset_url }}">
+      </div>
+    </li>
+     <li>
+     <div class="bs-devshop__lock-icon bs-devshop__flex bs-devshop__align-item-center bs-devshop__justify-center">
+        {% render 'icon-lock' %}
+        Shop with confidence
+     </div>
+       Your checkout is 256-bit encrypted.
+     </li>
+  </ul>
+</div>
