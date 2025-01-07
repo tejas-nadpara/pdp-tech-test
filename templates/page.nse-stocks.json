@@ -11,13 +11,19 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "nse_stocks_9mE84c": {
+      "type": "nse-stocks",
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "nse_stocks_9mE84c"
   ]
 }
