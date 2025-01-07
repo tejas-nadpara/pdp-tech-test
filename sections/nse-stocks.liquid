@@ -27,6 +27,14 @@
 
 <script>
   $(document).ready(function(){
+    $.ajax({
+          method: "GET",
+          dataType: "JSON",
+          url: "https://www.nseindia.com/api/equity-stockIndices?index=SECURITIES%20IN%20F%26O",
+          success: function (data) {
+              console.log(data)
+          }
+      })
     var nseTable = new DataTable('.nse-sttocks');
   });
 </script>
