@@ -27,16 +27,57 @@
 
 <script>
   $(document).ready(function(){
-    $.ajax({
-          method: "GET",
-          dataType: "JSON",
-          url: "https://www.nseindia.com/api/equity-stockIndices?index=SECURITIES%20IN%20F%26O",
-          success: function (data) {
-              console.log(data)
-          }
-      })
+    loadNSEStock()
     var nseTable = new DataTable('.nse-sttocks');
   });
+
+
+  var tableData = `<table id="example" class="nse-sttocks" style="width:100%">
+                      <thead>
+                          <tr>
+                              <th>Symbol</th>
+                              <th>previousClose</th>
+                              <th>lastPrice</th>
+                              <th>change</th>
+                              <th>pChange</th>
+                              <th>totalTradedVolume</th>
+                          </tr>
+                      </thead>
+                      <tbody>            
+                      </tbody>
+                  </table>`;
+  
+  function loadNSEStock(){
+    $.ajax({
+        method: "GET",
+        dataType: "JSON",
+        url: "https://www.nseindia.com/api/equity-stockIndices?index=SECURITIES%20IN%20F%26O",
+        success: function (response) {
+            console.log(response);
+            if(response == undefined){
+              $(".main").html("<h3>Data not loaded</h3>");
+            }else{
+              $(".main").html(tableData);
+              viewStockData(response);
+            }
+        }
+    })
+  }
+
+  function viewStockData(response){
+    $(response.data).each(function(i, stock){
+      $(".nse-sttocks tbody").append(`<tr>
+                                        <td>${stock.symbol}</td>
+                                        <td>${stock.previousClose}</td>
+                                        <td>${stock.lastPrice}</td>
+                                        <td>${stock.change}</td>
+                                        <td>${stock.pChange}</td>
+                                        <td>${stock.totalTradedVolume}</td>
+                                      </tr>`);
+    });
+    var nseTable = new DataTable('.nse-sttocks');
+  }
+  loadNSEStock()
 </script>
 
 {% schema %}
