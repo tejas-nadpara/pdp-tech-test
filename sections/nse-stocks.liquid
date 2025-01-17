@@ -40,6 +40,7 @@
                               <th>lastPrice</th>
                               <th>change</th>
                               <th>pChange</th>
+                              <th>PCR</th>
                               <th>totalTradedVolume</th>
                           </tr>
                       </thead>
@@ -91,6 +92,7 @@
                                         <td>${stock.lastPrice}</td>
                                         <td>${stock.change}</td>
                                         <td>${stock.pChange}</td>
+                                        <td class="pcr-data"></td>
                                         <td>${stock.totalTradedVolume}</td>
                                       </tr>`);
     });
@@ -98,6 +100,29 @@
     //var nseTable = new DataTable('.nse-sttocks');
     
   }
+
+  function addPCRData(){
+    if($(".nse-sttocks tr").length){
+      $(".nse-sttocks tr").each(function(){
+        var stockSymbol = $(this).find("td:eq(0)").text();
+        $.ajax({
+            method: "GET",
+            dataType: "JSON",
+            url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
+            success: function (response) {
+                console.log(response);
+                if(response == undefined){
+                  $(".main").html("<h3>Data not loaded</h3>");
+                }else{
+                  $(".main").html(tableData);
+                  viewStockData(response);
+                }
+            }
+        })
+      });
+    }
+  }
+  
   loadScript();
   loadNSEStock();
 </script>
