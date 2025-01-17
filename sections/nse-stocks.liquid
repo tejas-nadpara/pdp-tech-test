@@ -111,7 +111,6 @@
     if($(".nse-sttocks tr:not(.loaded)").length){
         var stockObj = $(".nse-sttocks tr:not(.loaded)").eq(0);
         var stockSymbol = stockObj.find("td:eq(0)").text();
-        setTimeout(async function(){
           $.ajax({
               method: "GET",
               dataType: "JSON",
@@ -133,8 +132,7 @@
                   }
               }
           });
-      });
-    }
+      }
   }
   
   loadScript();
