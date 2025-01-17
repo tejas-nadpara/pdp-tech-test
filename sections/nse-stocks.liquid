@@ -97,25 +97,29 @@
                                       </tr>`);
     });
     addPCRData();
-    //var nseTable = new DataTable('.nse-sttocks');
+    setTimeout(function(){
+      var nseTable = new DataTable('.nse-sttocks');
+    },5000);
+    
     
   }
 
   function addPCRData(){
     if($(".nse-sttocks tr").length){
       $(".nse-sttocks tr").each(function(){
-        var stockSymbol = $(this).find("td:eq(0)").text();
+        var stockObj = $(this);
+        var stockSymbol = stockObj.find("td:eq(0)").text();
         $.ajax({
             method: "GET",
             dataType: "JSON",
             url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
             success: function (response) {
                 console.log(response);
-                if(response == undefined){
-                  $(".main").html("<h3>Data not loaded</h3>");
-                }else{
-                  $(".main").html(tableData);
-                  viewStockData(response);
+                if(response != undefined){
+                  var callOI = response.filtered['CE'].totOI;
+                  var putOI = response.filtered['PE'].totOI;
+                  var pcr = (callOI / putOI).toFixed(1);
+                  stockObj.find(".pcr-data").text(pcr);
                 }
             }
         })
