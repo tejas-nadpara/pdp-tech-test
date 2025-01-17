@@ -115,7 +115,8 @@
               method: "GET",
               dataType: "JSON",
               url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
-              success: async function (response) {
+              success: async function (data) {
+                  var response = await data;
                   console.log(response);
                   if(response.filtered != undefined ){
                     var callOI = response.filtered['CE'].totOI;
