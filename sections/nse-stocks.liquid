@@ -108,8 +108,8 @@
   }
 
   async function addPCRData(){
-    if($(".nse-sttocks tr").length){
-      $(".nse-sttocks tr").each(async function(){
+    if($(".nse-sttocks tr:not(.loaded)").length){
+      $(".nse-sttocks tr:not(.loaded)").each(async function(){
         var stockObj = $(this);
         var stockSymbol = stockObj.find("td:eq(0)").text();
         setTimeout(async function(){
@@ -129,6 +129,8 @@
                     var putVol = response.filtered['PE'].totVol;
                     var volDiff = (putVol / callVol).toFixed(1);
                     stockObj.find(".vol-diff").text(volDiff);
+                    stockObj.addClass("loaded");
+                    addPCRData();
                   }
               }
           });
