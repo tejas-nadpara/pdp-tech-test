@@ -121,12 +121,12 @@
                 if(response != undefined){
                   var callOI = response.filtered['CE'].totOI;
                   var putOI = response.filtered['PE'].totOI;
-                  var pcr = (callOI / putOI).toFixed(1);
+                  var pcr = (putOI / callOI).toFixed(1);
                   stockObj.find(".pcr-data").text(pcr);
 
                   var callVol = response.filtered['CE'].totVol;
                   var putVol = response.filtered['PE'].totVol;
-                  var volDiff = (callVol / putVol).toFixed(1);
+                  var volDiff = (putVol / callVol).toFixed(1);
                   stockObj.find(".vol-diff").text(volDiff);
                 }
             }
