@@ -109,15 +109,15 @@
 
   async function addPCRData(){
     if($(".nse-sttocks tr:not(.loaded)").length){
-        var stockObj = $(".nse-sttocks tr:not(.loaded)").eq(0);
-        var stockSymbol = stockObj.find("td:eq(0)").text();
+        var stockObj = $(".nse-sttocks tr:not(.loaded)").last();
+        var stockSymbol = stockObj.find("td:eq(0)").text()
           $.ajax({
               method: "GET",
               dataType: "JSON",
               url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
               success: async function (response) {
                   console.log(response);
-                  if(response != undefined){
+                  if(response.filtered != undefined ){
                     var callOI = response.filtered['CE'].totOI;
                     var putOI = response.filtered['PE'].totOI;
                     var pcr = (putOI / callOI).toFixed(1);
