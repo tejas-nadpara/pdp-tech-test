@@ -128,8 +128,9 @@
                     var volDiff = (putVol / callVol).toFixed(1);
                     stockObj.find(".vol-diff").text(volDiff);
                     stockObj.addClass("loaded");
-                    addPCRData();
+                    
                   }
+                 addPCRData();
               }
           });
       }
