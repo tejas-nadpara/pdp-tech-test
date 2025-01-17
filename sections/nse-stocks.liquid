@@ -102,7 +102,7 @@
     await addPCRData();
     setTimeout(function(){
       var nseTable = new DataTable('.nse-sttocks');
-    },5000);
+    },10000);
     
     
   }
@@ -112,7 +112,7 @@
       $(".nse-sttocks tr").each(async function(){
         var stockObj = $(this);
         var stockSymbol = stockObj.find("td:eq(0)").text();
-        setTimeout(asyncfunction(){
+        setTimeout(async function(){
           $.ajax({
               method: "GET",
               dataType: "JSON",
