@@ -49,7 +49,7 @@
                       </tbody>
                   </table>`;
 
-  function loadScript() {
+  async function loadScript() {
       var script1 = document.createElement('script');
       script1.type = 'text/javascript';
       script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js';
@@ -69,7 +69,7 @@
       console.log('loadScript');
     */
   }
-  function loadNSEStock(){
+  async function loadNSEStock(){
     $.ajax({
         method: "GET",
         dataType: "JSON",
@@ -80,13 +80,13 @@
               $(".main").html("<h3>Data not loaded</h3>");
             }else{
               $(".main").html(tableData);
-              viewStockData(response);
+              await viewStockData(response);
             }
         }
     })
   }
 
-  function viewStockData(response){
+  async function viewStockData(response){
     $(response.data).each(function(i, stock){
       $(".nse-sttocks tbody").append(`<tr>
                                         <td>${stock.symbol}</td>
@@ -99,7 +99,7 @@
                                         <td>${stock.totalTradedVolume}</td>
                                       </tr>`);
     });
-    addPCRData();
+    await addPCRData();
     setTimeout(function(){
       var nseTable = new DataTable('.nse-sttocks');
     },5000);
@@ -107,7 +107,7 @@
     
   }
 
-  function addPCRData(){
+  async function addPCRData(){
     if($(".nse-sttocks tr").length){
       $(".nse-sttocks tr").each(function(){
         var stockObj = $(this);
