@@ -109,7 +109,6 @@
 
   async function addPCRData(){
     if($(".nse-sttocks tr:not(.loaded)").length){
-      $(".nse-sttocks tr:not(.loaded)").each(async function(){
         var stockObj = $(this);
         var stockSymbol = stockObj.find("td:eq(0)").text();
         setTimeout(async function(){
@@ -134,7 +133,6 @@
                   }
               }
           });
-        }, 250);
       });
     }
   }
