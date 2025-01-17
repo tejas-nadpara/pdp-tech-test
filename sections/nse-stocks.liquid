@@ -74,7 +74,7 @@
         method: "GET",
         dataType: "JSON",
         url: "https://www.nseindia.com/api/equity-stockIndices?index=SECURITIES%20IN%20F%26O",
-        success: function (response) {
+        success: async function (response) {
             console.log(response);
             if(response == undefined){
               $(".main").html("<h3>Data not loaded</h3>");
@@ -87,7 +87,7 @@
   }
 
   async function viewStockData(response){
-    $(response.data).each(function(i, stock){
+    $(response.data).each(async function(i, stock){
       $(".nse-sttocks tbody").append(`<tr>
                                         <td>${stock.symbol}</td>
                                         <td>${stock.previousClose}</td>
@@ -109,14 +109,14 @@
 
   async function addPCRData(){
     if($(".nse-sttocks tr").length){
-      $(".nse-sttocks tr").each(function(){
+      $(".nse-sttocks tr").each(async function(){
         var stockObj = $(this);
         var stockSymbol = stockObj.find("td:eq(0)").text();
         $.ajax({
             method: "GET",
             dataType: "JSON",
             url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
-            success: function (response) {
+            success: async function (response) {
                 console.log(response);
                 if(response != undefined){
                   var callOI = response.filtered['CE'].totOI;
