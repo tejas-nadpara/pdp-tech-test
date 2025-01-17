@@ -110,7 +110,7 @@
   async function addPCRData(){
     if($(".nse-sttocks tr:not(.loaded)").length){
         var stockObj = $(".nse-sttocks tr:not(.loaded)").last();
-        var stockSymbol = stockObj.find("td:eq(0)").text()
+        var stockSymbol = stockObj.find("td:eq(0)").text().replace("&", "%26")
           $.ajax({
               method: "GET",
               dataType: "JSON",
