@@ -112,25 +112,27 @@
       $(".nse-sttocks tr").each(async function(){
         var stockObj = $(this);
         var stockSymbol = stockObj.find("td:eq(0)").text();
-        $.ajax({
-            method: "GET",
-            dataType: "JSON",
-            url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
-            success: async function (response) {
-                console.log(response);
-                if(response != undefined){
-                  var callOI = response.filtered['CE'].totOI;
-                  var putOI = response.filtered['PE'].totOI;
-                  var pcr = (putOI / callOI).toFixed(1);
-                  stockObj.find(".pcr-data").text(pcr);
-
-                  var callVol = response.filtered['CE'].totVol;
-                  var putVol = response.filtered['PE'].totVol;
-                  var volDiff = (putVol / callVol).toFixed(1);
-                  stockObj.find(".vol-diff").text(volDiff);
-                }
-            }
-        })
+        setTimeout(asyncfunction(){
+          $.ajax({
+              method: "GET",
+              dataType: "JSON",
+              url: "https://www.nseindia.com/api/option-chain-equities?symbol="+stockSymbol,
+              success: async function (response) {
+                  console.log(response);
+                  if(response != undefined){
+                    var callOI = response.filtered['CE'].totOI;
+                    var putOI = response.filtered['PE'].totOI;
+                    var pcr = (putOI / callOI).toFixed(1);
+                    stockObj.find(".pcr-data").text(pcr);
+  
+                    var callVol = response.filtered['CE'].totVol;
+                    var putVol = response.filtered['PE'].totVol;
+                    var volDiff = (putVol / callVol).toFixed(1);
+                    stockObj.find(".vol-diff").text(volDiff);
+                  }
+              }
+          });
+        }, 100);
       });
     }
   }
