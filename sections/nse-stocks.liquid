@@ -105,6 +105,7 @@
    
   }
 
+  var stockCnt = 0;
   async function addPCRData(){
     if($(".nse-sttocks tr:not(.loaded)").length > 1){
         var stockObj = $(".nse-sttocks tr:not(.loaded)").last();
@@ -134,11 +135,6 @@
                         stockObj.find(".call-oi-change").text(callOI);
                         stockObj.find(".put-oi-change").text(putOI); 
                       }
-
-                      stockObj.addClass("loaded");
-                      if(i < 5){
-                        addPCRData();
-                      }
                     });
 
                     // Total OI PCR
@@ -155,7 +151,11 @@
                     */
                   
                   }
-                 
+                 stockCnt++;
+                 if(stockCnt < 5){
+                   stockObj.addClass("loaded");
+                   addPCRData();
+                 }
               }
           });
       }else{
