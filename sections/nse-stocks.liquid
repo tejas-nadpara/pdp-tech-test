@@ -134,6 +134,11 @@
                         stockObj.find(".call-oi-change").text(callOI);
                         stockObj.find(".put-oi-change").text(putOI); 
                       }
+
+                      stockObj.addClass("loaded");
+                      if(i < 5){
+                        addPCRData();
+                      }
                     });
 
                     // Total OI PCR
@@ -150,8 +155,7 @@
                     */
                   
                   }
-                 stockObj.addClass("loaded");
-                 addPCRData();
+                 
               }
           });
       }else{
