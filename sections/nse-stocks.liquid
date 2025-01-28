@@ -129,7 +129,7 @@
                     
                     $(oiArray).each(function(i, oi_item){
                       var strikePrice = parseFloat(oi_item.strikePrice);
-                      var underlyingValue = parseFloat(oi_item['CE'].underlyingValue);
+                      var underlyingValue = parseFloat(oi_item['PE'].underlyingValue);
                       if(strikePrice > underlyingValue){
                         callOI += parseFloat(oi_item['CE'].changeinOpenInterest);
                         callOI += parseFloat(oiArray[i+1]['CE'].changeinOpenInterest);
