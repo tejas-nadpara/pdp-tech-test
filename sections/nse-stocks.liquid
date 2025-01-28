@@ -137,30 +137,41 @@
                     $(oiArray).each(function(i, oi_item){
                       var strikePrice = parseFloat(oi_item.strikePrice);
                       if(strikePrice > underlyingValue){
-                        callOIC += parseFloat(oi_item['CE'].changeinOpenInterest);
-                        callOIC += parseFloat(oiArray[i+1]['CE'].changeinOpenInterest);
-                        callOIC += parseFloat(oiArray[i+2]['CE'].changeinOpenInterest);
+                        if(oi_item['CE'] != undefined){
+                          callOIC += parseFloat(oi_item['CE'].changeinOpenInterest);
+                          callVol += parseInt(oi_item['CE'].totalBuyQuantity);
+                          callOI += parseFloat(oi_item['CE'].openInterest);
+                        }
 
-                        putOIC += parseFloat(oiArray[i-1]['PE'].changeinOpenInterest);
-                        putOIC += parseFloat(oiArray[i-2]['PE'].changeinOpenInterest);
-                        putOIC += parseFloat(oiArray[i-3]['PE'].changeinOpenInterest);
+                        if(oiArray[i+1]['CE'] != undefined){
+                          callOIC += parseFloat(oiArray[i+1]['CE'].changeinOpenInterest);
+                          callVol += parseInt(oiArray[i+1]['CE'].totalBuyQuantity);
+                          callOI += parseFloat(oiArray[i+1]['CE'].openInterest);
+                        }
+                          
+                        if(oiArray[i+2]['CE'] != undefined){
+                          callOIC += parseFloat(oiArray[i+2]['CE'].changeinOpenInterest);
+                          callVol += parseInt(oiArray[i+2]['CE'].totalBuyQuantity);
+                          callOI += parseFloat(oiArray[i+2]['CE'].openInterest);
+                        }
 
-                        callVol += parseInt(oi_item['CE'].totalBuyQuantity);
-                        callVol += parseInt(oiArray[i+1]['CE'].totalBuyQuantity);
-                        callVol += parseInt(oiArray[i+2]['CE'].totalBuyQuantity);
+                        if(oiArray[i-1]['PE'] != undefined){
+                          putOIC += parseFloat(oiArray[i-1]['PE'].changeinOpenInterest);
+                          putVol += parseFloat(oiArray[i-1]['PE'].totalSellQuantity);
+                          putOI += parseFloat(oiArray[i-1]['PE'].openInterest);
+                        }
 
-                        putVol += parseFloat(oiArray[i-1]['PE'].totalSellQuantity);
-                        putVol += parseFloat(oiArray[i-2]['PE'].totalSellQuantity);
-                        putVol += parseFloat(oiArray[i-3]['PE'].totalSellQuantity);
+                        if(oiArray[i-2]['PE'] != undefined){
+                          putOIC += parseFloat(oiArray[i-2]['PE'].changeinOpenInterest);
+                          putVol += parseFloat(oiArray[i-2]['PE'].totalSellQuantity);
+                          putOI += parseFloat(oiArray[i-2]['PE'].openInterest);
+                        }
 
-                        callOI += parseFloat(oi_item['CE'].openInterest);
-                        callOI += parseFloat(oiArray[i+1]['CE'].openInterest);
-                        callOI += parseFloat(oiArray[i+2]['CE'].openInterest);
-
-                        putOI += parseFloat(oiArray[i-1]['PE'].openInterest);
-                        putOI += parseFloat(oiArray[i-2]['PE'].openInterest);
-                        putOI += parseFloat(oiArray[i-3]['PE'].openInterest);
-
+                        if(oiArray[i-3]['PE'] != undefined){
+                          putOIC += parseFloat(oiArray[i-3]['PE'].changeinOpenInterest);
+                          putVol += parseFloat(oiArray[i-3]['PE'].totalSellQuantity);
+                          putOI += parseFloat(oiArray[i-3]['PE'].openInterest);
+                        }
 
                         stockObj.find(".call-oi-change").text(callOI);
                         stockObj.find(".put-oi-change").text(putOI);
