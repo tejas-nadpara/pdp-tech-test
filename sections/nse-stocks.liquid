@@ -94,6 +94,8 @@
                                         <td>${stock.lastPrice}</td>
                                         <td>${stock.change}</td>
                                         <td>${stock.pChange}</td>
+                                        <td class="call-oi-change">0</td>
+                                        <td class="put-oi-change">0</td>
                                         <td class="pcr-data">0</td>
                                         <td class="vol-diff">0</td>
                                         <td>${stock.totalTradedVolume}</td>
@@ -115,6 +117,27 @@
                   var response = await data;
                   console.log(response);
                   if(response.filtered != undefined ){
+                    var callOI = 0;
+                    var putOI = 0;
+                    $(response.filtered.data).each(function(i, oc){
+                      var strikePrice = parseFloat(oc.strikePrice);
+                      var underlyingValue = parseFloat(oc['CE'].underlyingValue);
+                      if(strikePrice > underlyingValue){
+                        callOI += parseFloat(oc['CE'].changeinOpenInterest);
+                        callOI += parseFloat(response.filtered.data[i+1]['CE'].changeinOpenInterest);
+                        callOI += parseFloat(response.filtered.data[i+2]['CE'].changeinOpenInterest);
+
+                        putOI += parseFloat(response.filtered.data[i-1]['PE'].changeinOpenInterest);
+                        putOI += parseFloat(response.filtered.data[i-2]['PE'].changeinOpenInterest);
+                        putOI += parseFloat(response.filtered.data[i-3]['PE'].changeinOpenInterest);
+
+                        stockObj.find(".call-oi-change").text(callOI);
+                        stockObj.find(".put-oi-change").text(putOI); 
+                      }
+                    });
+
+                    // Total OI PCR
+                    /*
                     var callOI = response.filtered['CE'].totOI;
                     var putOI = response.filtered['PE'].totOI;
                     var pcr = (putOI / callOI).toFixed(1);
@@ -124,9 +147,10 @@
                     var putVol = response.filtered['PE'].totVol;
                     var volDiff = (putVol / callVol).toFixed(1);
                     stockObj.find(".vol-diff").text(volDiff);
-                    stockObj.addClass("loaded");
-                    
+                    */
+                  
                   }
+                 stockObj.addClass("loaded");
                  addPCRData();
               }
           });
