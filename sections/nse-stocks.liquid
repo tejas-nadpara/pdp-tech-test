@@ -128,7 +128,9 @@
                     $(response.filtered.data).each(function(i, oc){
                       oiArray.push(oc);
                       if(oc['CE'] != undefined){
-                        underlyingValue = parseFloat(oc['CE'].underlyingValue);
+                        if(oc['CE'].underlyingValue != undefined){
+                          underlyingValue = parseFloat(oc['CE'].underlyingValue);
+                        }
                       }
                     });
                     
@@ -185,10 +187,8 @@
                   
                   }
                  stockCnt++;
-                if(stockCnt < 5){
                  stockObj.addClass("loaded");
                  addPCRData();
-                }
               }
           });
       }else{
