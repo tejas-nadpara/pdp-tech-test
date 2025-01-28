@@ -123,9 +123,13 @@
                     var callOIC = 0, putOIC = 0;
                     var callOI = 0, putOI = 0;
                     var callVol = 0, putVol = 0;
+                    var underlyingValue = 0;
                     var oiArray = [];
                     $(response.filtered.data).each(function(i, oc){
                       oiArray.push(oc);
+                      if(oc['CE'].underlyingValue != undefined){
+                        underlyingValue = parseFloat(oc['CE'].underlyingValue);
+                      }
                     });
                     
                     $(oiArray).each(function(i, oi_item){
@@ -181,8 +185,10 @@
                   
                   }
                  stockCnt++;
+                if(stockCnt < 5){
                  stockObj.addClass("loaded");
                  addPCRData();
+                }
               }
           });
       }else{
