@@ -140,9 +140,10 @@
                         putOI += parseFloat(oiArray['PE'].changeinOpenInterest);
 
                         stockObj.find(".call-oi-change").text(callOI);
-                        stockObj.find(".put-oi-change").text(putOI); 
-                        break;
+                        stockObj.find(".put-oi-change").text(putOI);    
+                        return false;
                       }
+                      
                     });
 
                     // Total OI PCR
