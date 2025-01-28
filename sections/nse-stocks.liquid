@@ -158,7 +158,8 @@
 
 
                         stockObj.find(".call-oi-change").text(callOI);
-                        stockObj.find(".put-oi-change").text(putOI);    
+                        stockObj.find(".put-oi-change").text(putOI);
+                        stockObj.find(".pcr-data").text((putOI / callOI).toFixed(1));  
                         stockObj.find(".vol-diff").text(putVol - callVol);
                         return false;
                       }
