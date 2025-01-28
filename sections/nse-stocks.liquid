@@ -122,20 +122,26 @@
                   if(response.filtered != undefined ){
                     var callOI = 0;
                     var putOI = 0;
+                    var oiArray = [];
                     $(response.filtered.data).each(function(i, oc){
-                      var strikePrice = parseFloat(oc.strikePrice);
-                      var underlyingValue = parseFloat(oc['CE'].underlyingValue);
+                      oiArray.push(oc);
+                    });
+                    
+                    $(oiArray).each(function(i, oi_item){
+                      var strikePrice = parseFloat(oi_item.strikePrice);
+                      var underlyingValue = parseFloat(oi_item['CE'].underlyingValue);
                       if(strikePrice > underlyingValue){
-                        callOI += parseFloat(oc['CE'].changeinOpenInterest);
-                        callOI += parseFloat(response.filtered.data[i+1]['CE'].changeinOpenInterest);
-                        callOI += parseFloat(response.filtered.data[i+2]['CE'].changeinOpenInterest);
+                        callOI += parseFloat(oi_item['CE'].changeinOpenInterest);
+                        callOI += parseFloat(oiArray[i+1]['CE'].changeinOpenInterest);
+                        callOI += parseFloat(oiArray[i+2]['CE'].changeinOpenInterest);
 
-                        putOI += parseFloat(response.filtered.data[i-1]['PE'].changeinOpenInterest);
-                        putOI += parseFloat(response.filtered.data[i-2]['PE'].changeinOpenInterest);
-                        putOI += parseFloat(response.filtered.data[i-3]['PE'].changeinOpenInterest);
+                        putOI += parseFloat(oiArray[i-1]['PE'].changeinOpenInterest);
+                        putOI += parseFloat(oiArray['PE'].changeinOpenInterest);
+                        putOI += parseFloat(oiArray['PE'].changeinOpenInterest);
 
                         stockObj.find(".call-oi-change").text(callOI);
                         stockObj.find(".put-oi-change").text(putOI); 
+                        break;
                       }
                     });
 
