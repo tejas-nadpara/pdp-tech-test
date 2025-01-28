@@ -89,15 +89,19 @@
     }
   
   async function viewStockData(response){
-      $(response.data).each(async function(i, stock){ console.log(stock)
+      $(response.data).each(async function(i, stock)
+        var volCall = parseInt(stock.detail.preOpenMarket.totalBuyQuantity);  
+        var volPut = parseInt(stock.detail.preOpenMarket.totalSellQuantity); 
+        var volDiff =  (volPut /  volCall).toFixed(1);                 
         $(".nse-sttocks tbody").append(`<tr>
                                           <td>${stock.metadata.symbol}</td>
                                           <td>${stock.metadata.previousClose}</td>
                                           <td>${stock.metadata.lastPrice}</td>
                                           <td>${stock.metadata.change}</td>
                                           <td>${stock.metadata.pChange}</td>
-                                          <td class="pcr-data">0</td>
-                                          <td class="vol-diff">0</td>
+                                          <td class="call-vol">${stock.detail.preOpenMarket.totalBuyQuantity}</td>
+                                          <td class="put-vol">${stock.detail.preOpenMarket.totalSellQuantity}</td>
+                                          <td class="vol-diff">${volDiff}</td>
                                           <td>${stock.metadata.totalTradedVolume}</td>
                                         </tr>`);
       });
