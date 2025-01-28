@@ -1,6 +1,122 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<script src="https://cdn.datatables.net/2.2.0/js/dataTables.js" ></script>
+<link href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" media="all" />
+
+
+<section class="">
+  <div class="page-width section-{{ section.id }}-padding{% if section.settings.secondary_background %} isolate{% endif %}">
+
+    <table id="example" class="nse-sttocks" style="width:100%">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>previousClose</th>
+                <th>lastPrice</th>
+                <th>change</th>
+                <th>pChange</th>
+                <th>totalTradedVolume</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    
+  </div>
+</section>
+
+<script>
+  $(document).ready(function(){
+    loadNSEStock()
+    var nseTable = new DataTable('.nse-sttocks');
+  });
+
+
+  var tableData = `<table id="example" class="nse-sttocks" style="width:100%">
+                      <thead>
+                          <tr>
+                              <th>Symbol</th>
+                              <th>previousClose</th>
+                              <th>lastPrice</th>
+                              <th>change</th>
+                              <th>pChange</th>
+                              <th>Call Vol</th>
+                              <th>Pul Vol</th>
+                              <th>Vol Diff</th>
+                              <th>totalTradedVolume</th>
+                          </tr>
+                      </thead>
+                      <tbody>            
+                      </tbody>
+                  </table>`;
+
+  async function loadScript() {
+      var script1 = document.createElement('script');
+      script1.type = 'text/javascript';
+      script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js';
+      document.body.appendChild(script1);
+      console.log('loadScript');
+/*
+      var script2 = document.createElement('script');
+      script2.type = 'text/javascript';
+      script2.src = 'https://cdn.datatables.net/2.2.0/js/dataTables.js';
+      document.body.appendChild(script2);
+      console.log('loadScript');
+
+      var script3 = document.createElement('link');
+      script3.type = 'text/css';
+      script3.src = 'https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css';
+      document.body.appendChild(script3);
+      console.log('loadScript');
+    */
+  }
+  
+  async function loadNSEStock(){
+      $.ajax({
+          method: "GET",
+          dataType: "JSON",
+          url: "https://www.nseindia.com/api/market-data-pre-open?key=FO",
+          success: async function (response) {
+              console.log(response);
+              if(response == undefined){
+                $(".main").html("<h3>Data not loaded</h3>");
+              }else{
+                $(".main").html(tableData);
+                await viewStockData(response);
+              }
+          }
+      })
+    }
+  
+  async function viewStockData(response){
+      $(response.data).each(async function(i, stock){ console.log(stock)
+        $(".nse-sttocks tbody").append(`<tr>
+                                          <td>${stock.metadata.symbol}</td>
+                                          <td>${stock.metadata.previousClose}</td>
+                                          <td>${stock.metadata.lastPrice}</td>
+                                          <td>${stock.metadata.change}</td>
+                                          <td>${stock.metadata.pChange}</td>
+                                          <td class="pcr-data">0</td>
+                                          <td class="vol-diff">0</td>
+                                          <td>${stock.metadata.totalTradedVolume}</td>
+                                        </tr>`);
+      });
+     
+    }
+
+  
+  loadScript();
+  loadNSEStock();
+</script>
+
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "NSE Stocks",
+    "settings": [],
+    "presets": [
+      {
+        "name": "NSE Stocks"
+      }
+    ]
   }
 {% endschema %}
