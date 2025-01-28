@@ -122,6 +122,8 @@
                   if(response.filtered != undefined ){
                     var callOI = 0;
                     var putOI = 0;
+                    var callVol = 0;
+                    var putVol = 0;
                     var oiArray = [];
                     $(response.filtered.data).each(function(i, oc){
                       oiArray.push(oc);
@@ -139,8 +141,18 @@
                         putOI += parseFloat(oiArray[i-2]['PE'].changeinOpenInterest);
                         putOI += parseFloat(oiArray[i-3]['PE'].changeinOpenInterest);
 
+                        callVol += parseInt(oi_item['CE'].totalBuyQuantity);
+                        callVol += parseInt(oiArray[i+1]['CE'].totalBuyQuantity);
+                        callVol += parseInt(oiArray[i+2]['CE'].totalBuyQuantity);
+
+                        putVol += parseFloat(oiArray[i-1]['PE'].totalSellQuantity);
+                        putVol += parseFloat(oiArray[i-2]['PE'].totalSellQuantity);
+                        putVol += parseFloat(oiArray[i-3]['PE'].totalSellQuantity);
+
+
                         stockObj.find(".call-oi-change").text(callOI);
                         stockObj.find(".put-oi-change").text(putOI);    
+                        stockObj.find(".vol-diff").text(putVol - callVol);
                         return false;
                       }
                       
