@@ -173,9 +173,9 @@
                           putOI += parseFloat(oiArray[i-2]['PE'].openInterest);
                         }
 
-                        stockObj.find(".call-oi-change").text(callOI);
-                        stockObj.find(".put-oi-change").text(putOI);
-                        stockObj.find(".pcr-data").text((putOI / callOI).toFixed(1));  
+                        stockObj.find(".call-oi-change").text(callOIC);
+                        stockObj.find(".put-oi-change").text(putOIC);
+                        stockObj.find(".pcr-data").text((putOIC / callOIC).toFixed(1));  
                         stockObj.find(".vol-diff").text(putVol - callVol);
                         return false;
                       }
