@@ -155,6 +155,12 @@
                           callOI += parseFloat(oiArray[i+2]['CE'].openInterest);
                         }
 
+                        if(oi_item['PE'] != undefined){
+                          putOIC += parseFloat(oi_item['PE'].changeinOpenInterest);
+                          putVol += parseFloat(oi_item['PE'].totalSellQuantity);
+                          putOI += parseFloat(oi_item['PE'].openInterest);
+                        }
+
                         if(oiArray[i-1]['PE'] != undefined){
                           putOIC += parseFloat(oiArray[i-1]['PE'].changeinOpenInterest);
                           putVol += parseFloat(oiArray[i-1]['PE'].totalSellQuantity);
@@ -165,12 +171,6 @@
                           putOIC += parseFloat(oiArray[i-2]['PE'].changeinOpenInterest);
                           putVol += parseFloat(oiArray[i-2]['PE'].totalSellQuantity);
                           putOI += parseFloat(oiArray[i-2]['PE'].openInterest);
-                        }
-
-                        if(oiArray[i-3]['PE'] != undefined){
-                          putOIC += parseFloat(oiArray[i-3]['PE'].changeinOpenInterest);
-                          putVol += parseFloat(oiArray[i-3]['PE'].totalSellQuantity);
-                          putOI += parseFloat(oiArray[i-3]['PE'].openInterest);
                         }
 
                         stockObj.find(".call-oi-change").text(callOI);
