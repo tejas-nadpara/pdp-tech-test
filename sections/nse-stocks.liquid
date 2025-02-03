@@ -52,7 +52,8 @@
                   </table>`;
 
   tableData += "<div>Total Call OIC: <span class='totalCallOIC'></span></div><br>";
-  tableData += "<div>Total Put OIC: <span class='totalPutOIC'></span></div>";
+  tableData += "<div>Total Put OIC: <span class='totalPutOIC'></span></div><br>";
+  tableData += "<div>Total PCR: <span class='totalPCR'></span></div>";
 
   async function loadScript() {
       var script1 = document.createElement('script');
@@ -211,6 +212,7 @@
         var nseTable = new DataTable('.nse-sttocks');
         $(".totalCallOIChange").text(totalCallOIChange);
         $(".totalPutOIChange").text(totalPutOIChange);
+        $(".totalPCR").text((totalPutOIChange/totalCallOIChange).toFixed(1));
       }
   }
   
