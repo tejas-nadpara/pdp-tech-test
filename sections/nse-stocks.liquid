@@ -51,6 +51,9 @@
                       </tbody>
                   </table>`;
 
+  tableData += "<div>Total Call OIC: <span class='totalCallOIC'></span></div><br>";
+  tableData += "<div>Total Put OIC: <span class='totalPutOIC'></span></div>";
+
   async function loadScript() {
       var script1 = document.createElement('script');
       script1.type = 'text/javascript';
@@ -110,6 +113,7 @@
   var stockCnt = 0;
   async function addPCRData(){
     if($(".nse-sttocks tr:not(.loaded)").length > 1){
+        var totalCallOIChange = 0, totalCaPutOIChange = 0;
         var stockObj = $(".nse-sttocks tr:not(.loaded)").last();
         var stockSymbol = stockObj.find("td:eq(0)").text().replace("&", "%26")
           $.ajax({
@@ -152,8 +156,9 @@
                         if(oiArray[i+2]['CE'] != undefined){
                           callOIC += parseFloat(oiArray[i+2]['CE'].changeinOpenInterest);
                           callVol += parseInt(oiArray[i+2]['CE'].totalBuyQuantity);
-                          callOI += parseFloat(oiArray[i+2]['CE'].openInterest);
+                          callOI += parseFloat(oiArray[i+2]['CE'].openInterest);                          
                         }
+                        totalCallOIChange += callOIC;
 
                         if(oi_item['PE'] != undefined){
                           putOIC += parseFloat(oi_item['PE'].changeinOpenInterest);
@@ -172,6 +177,7 @@
                           putVol += parseFloat(oiArray[i-2]['PE'].totalSellQuantity);
                           putOI += parseFloat(oiArray[i-2]['PE'].openInterest);
                         }
+                        totalPutOIChange += putOIC;
 
                         stockObj.find(".call-oi-change").text(callOIC);
                         stockObj.find(".put-oi-change").text(putOIC);
