@@ -36,7 +36,6 @@
                       <thead>
                           <tr>
                               <th>Symbol</th>
-                              <th>previousClose</th>
                               <th>lastPrice</th>
                               <th>change</th>
                               <th>pChange</th>
@@ -96,7 +95,6 @@
     $(response.data).each(async function(i, stock){
       $(".nse-sttocks tbody").append(`<tr>
                                         <td>${stock.symbol}</td>
-                                        <td>${stock.previousClose}</td>
                                         <td>${stock.lastPrice}</td>
                                         <td>${stock.change}</td>
                                         <td>${stock.pChange}</td>
