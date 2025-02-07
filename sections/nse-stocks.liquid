@@ -94,7 +94,7 @@
   async function viewStockData(response){
     $(response.data).each(async function(i, stock){
       $(".nse-sttocks tbody").append(`<tr>
-                                        <td>${stock.symbol}</td>
+                                        <td>${stock.symbol}</td> 
                                         <td>${stock.lastPrice}</td>
                                         <td>${stock.change}</td>
                                         <td>${stock.pChange}</td>
