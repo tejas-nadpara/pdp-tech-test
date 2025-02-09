@@ -198,7 +198,7 @@
 
                         stockObj.find(".call-oi-change").text(callOIC);
                         stockObj.find(".put-oi-change").text(putOIC);
-                        stockObj.find(".pcr-data").text((putOIC / callOIC).toFixed(1));  
+                        stockObj.find(".pcr-data").text((putOI / callOI).toFixed(1));  
 
                         stockObj.find(".callBuyQty").text(callBuyQty);  
                         stockObj.find(".callSellQty").text(callSellQty);
@@ -226,7 +226,7 @@
                   }
                  stockCnt++;
                  stockObj.addClass("loaded"); 
-                if(stockCnt < 5){
+                if(stockCnt < 10){
                   addPCRData();         
                 }
               }
