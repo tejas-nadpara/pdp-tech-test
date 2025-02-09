@@ -223,9 +223,9 @@
                   
                   }
                  stockCnt++;
-                 stockObj.addClass("loaded");   
-                  addPCRData();
-                if(stockCnt > 5){
+                 stockObj.addClass("loaded"); 
+                if(stockCnt < 5){
+                  addPCRData();         
                   return false;
                 }
               }
