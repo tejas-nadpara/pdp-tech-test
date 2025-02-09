@@ -101,6 +101,10 @@
                                         <td class="call-oi-change">0</td>
                                         <td class="put-oi-change">0</td>
                                         <td class="pcr-data">0</td>
+                                        <td class="callBuyQty">0</td>
+                                        <td class="callSellQty">0</td>
+                                        <td class="putBuyQty">0</td>
+                                        <td class="putSellQty">0</td>
                                         <td class="vol-diff">0</td>
                                         <td>${stock.totalTradedVolume}</td>
                                       </tr>`);
@@ -195,6 +199,12 @@
                         stockObj.find(".call-oi-change").text(callOIC);
                         stockObj.find(".put-oi-change").text(putOIC);
                         stockObj.find(".pcr-data").text((putOIC / callOIC).toFixed(1));  
+
+                        stockObj.find(".callBuyQty").text(callBuyQty);  
+                        stockObj.find(".callSellQty").text(callSellQty);
+                        stockObj.find(".putBuyQty").text(putBuyQty);  
+                        stockObj.find(".putSellQty").text(putSellQty);
+                        
                         stockObj.find(".vol-diff").text(putVol - callVol);
                         return false;
                       }
@@ -224,7 +234,7 @@
         var nseTable = new DataTable('.nse-sttocks');
         $(".totalCallOIChange").text(totalCallOIChange);
         $(".totalPutOIChange").text(totalPutOIChange);
-        $(".totalPCR").text((totalPutOIChange/totalCallOIChange).toFixed(1));
+        $(".totalPCR").text((totalPutOIChange/totalCallOIChange).toFixed(1)); 
       }
   }
   
