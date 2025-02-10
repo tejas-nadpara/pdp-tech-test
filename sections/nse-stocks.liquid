@@ -41,6 +41,8 @@
                               <th>pChange</th>
                               <th>Call OI change</th>
                               <th>Put OI change</th>
+                              <th>Call OI</th>
+                              <th>Put OI</th>
                               <th>PCR</th>                            
                               <th>callBuyQty</th>
                               <th>putBuyQty</th>
@@ -200,6 +202,8 @@
 
                         stockObj.find(".call-oi-change").text(callOIC);
                         stockObj.find(".put-oi-change").text(putOIC);
+                        stockObj.find(".call-oi").text(callOI);
+                        stockObj.find(".put-oi").text(putOI);
                         stockObj.find(".pcr-data").text((putOI / callOI).toFixed(1));  
 
                         stockObj.find(".callBuyQty").text(callBuyQty);  
