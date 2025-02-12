@@ -43,11 +43,10 @@
                               <th>Put OI change</th>
                               <th>Call OI</th>
                               <th>Put OI</th>
-                              <th>PCR</th>                            
-                              <th>callBuyQty</th>
-                              <th>putBuyQty</th>
+                              <th>PCR</th>
                               <th>callSellQty</th>                            
                               <th>putSellQty</th>
+                              <th>Sell PCR</th>
                           </tr>
                       </thead>
                       <tbody>            
@@ -107,10 +106,9 @@
                                         <td class="call-oi">0</td>
                                         <td class="put-oi">0</td>
                                         <td class="pcr-data">0</td>
-                                        <td class="callBuyQty">0</td>
-                                        <td class="putBuyQty">0</td>
                                         <td class="callSellQty">0</td>
                                         <td class="putSellQty">0</td>
+                                        <td class="sell-pcr">0</td>
                                       </tr>`);
     });
     await addPCRData();
@@ -154,7 +152,7 @@
                           callOIC += parseFloat(oi_item['CE'].changeinOpenInterest);
                           callOI += parseFloat(oi_item['CE'].openInterest);
 
-                          callBuyQty += parseInt(oi_item['CE'].totalBuyQuantity);
+                        //  callBuyQty += parseInt(oi_item['CE'].totalBuyQuantity);
                           callSellQty += parseInt(oi_item['CE'].totalSellQuantity);
                         }
 
@@ -162,7 +160,7 @@
                           callOIC += parseFloat(oiArray[i+1]['CE'].changeinOpenInterest);
                           callOI += parseFloat(oiArray[i+1]['CE'].openInterest);
 
-                          callBuyQty += parseInt(oiArray[i+1]['CE'].totalBuyQuantity);
+                        //  callBuyQty += parseInt(oiArray[i+1]['CE'].totalBuyQuantity);
                           callSellQty += parseInt(oiArray[i+1]['CE'].totalSellQuantity);
                         }
                           
@@ -170,7 +168,7 @@
                           callOIC += parseFloat(oiArray[i+2]['CE'].changeinOpenInterest);
                           callOI += parseFloat(oiArray[i+2]['CE'].openInterest);   
 
-                          callBuyQty += parseInt(oiArray[i+2]['CE'].totalBuyQuantity);
+                        //  callBuyQty += parseInt(oiArray[i+2]['CE'].totalBuyQuantity);
                           callSellQty += parseInt(oiArray[i+2]['CE'].totalSellQuantity);
                         }
                         totalCallOIChange += callOIC;
@@ -179,7 +177,7 @@
                           putOIC += parseFloat(oi_item['PE'].changeinOpenInterest);
                           putOI += parseFloat(oi_item['PE'].openInterest);
 
-                          putBuyQty += parseInt(oi_item['PE'].totalBuyQuantity);
+                       //   putBuyQty += parseInt(oi_item['PE'].totalBuyQuantity);
                           putSellQty += parseInt(oi_item['PE'].totalSellQuantity);
                         }
 
@@ -187,7 +185,7 @@
                           putOIC += parseFloat(oiArray[i-1]['PE'].changeinOpenInterest);
                           putOI += parseFloat(oiArray[i-1]['PE'].openInterest);
 
-                          putBuyQty += parseInt(oiArray[i-1]['PE'].totalBuyQuantity);
+                       //   putBuyQty += parseInt(oiArray[i-1]['PE'].totalBuyQuantity);
                           putSellQty += parseInt(oiArray[i-1]['PE'].totalSellQuantity);
                         }
 
@@ -195,7 +193,7 @@
                           putOIC += parseFloat(oiArray[i-2]['PE'].changeinOpenInterest);
                           putOI += parseFloat(oiArray[i-2]['PE'].openInterest);
 
-                          putBuyQty += parseInt(oiArray[i-2]['PE'].totalBuyQuantity);
+                       //   putBuyQty += parseInt(oiArray[i-2]['PE'].totalBuyQuantity);
                           putSellQty += parseInt(oiArray[i-2]['PE'].totalSellQuantity);
                         }
                         totalPutOIChange += putOIC;
@@ -206,11 +204,9 @@
                         stockObj.find(".put-oi").text(putOI);
                         stockObj.find(".pcr-data").text((putOI / callOI).toFixed(1));  
 
-                        stockObj.find(".callBuyQty").text(callBuyQty);  
-                        stockObj.find(".callSellQty").text(callSellQty);
-                        stockObj.find(".putBuyQty").text(putBuyQty);  
+                        stockObj.find(".callSellQty").text(callSellQty);  
                         stockObj.find(".putSellQty").text(putSellQty);
-                        
+                        stockObj.find(".sell-pcr").text((putSellQty/callSellQty).toFixed(1));
                         return false;
                       }
                       
